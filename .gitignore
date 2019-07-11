@@ -1,0 +1,8 @@
+.code
+.env
+node_modules
+
+*.env
+*.pyc
+
+Pipenv.lock
