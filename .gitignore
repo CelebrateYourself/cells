@@ -1,8 +1,10 @@
-.code
+.vscode
 .env
 node_modules
+staticfiles
 
 *.env
 *.pyc
+*.sqlite3
 
-Pipenv.lock
+Pipfile.lock
