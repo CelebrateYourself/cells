@@ -41,5 +41,15 @@ services:
     ports:
       - 8888:80
 
+  frontend:
+    build: ./frontend
+    command: npm run serve -- --port 8080
+    volumes:
+      - ./frontend/:/code/
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
+
 volumes:
   postgres_data_dev:

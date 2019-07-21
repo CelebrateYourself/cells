@@ -23,7 +23,9 @@ services:
     env_file: db.env
 
   web:
-    build: ./nginx
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
     volumes:
       - static_volume:/usr/src/cells/staticfiles/
       - media_volume:/usr/src/cells/mediafiles/
