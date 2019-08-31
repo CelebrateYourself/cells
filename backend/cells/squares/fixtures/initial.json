@@ -1,0 +1,15 @@
+[
+    {
+        "model": "squares.squaresmap",
+        "pk": "deep-ocean",
+        "fields": {
+            "author": 1,
+            "cols": 5,
+            "rows": 4,
+            "title": "Deep Ocean",
+            "created_at": "2019-08-31T10:41:41.405Z",
+            "updated_at": "2019-08-31T10:42:32.831Z",
+            "json_str": "[[1,2,3,4,5],[6, null, 7, null, 8], [9, 10, light, 11, 12], [13,14,15,16,17]]"
+        }
+    }
+]

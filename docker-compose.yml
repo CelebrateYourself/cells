@@ -19,6 +19,8 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - DATABASE=postgres
+      - SUPERUSER_EMAIL=root@cells.mail
+      - SUPERUSER_PASSWORD=superuser
     depends_on:
       - db
 
