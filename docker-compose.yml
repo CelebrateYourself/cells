@@ -48,10 +48,14 @@ services:
     command: npm run serve -- --port 8080
     volumes:
       - ./frontend/:/code/
+      - node_modules:/code/node_modules
+    environment:
+      - VUE_APP_API_URL=http://localhost:8000/api
     ports:
       - 8080:8080
     depends_on:
       - backend
 
 volumes:
+  node_modules:
   postgres_data_dev:

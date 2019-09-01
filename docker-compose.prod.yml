@@ -26,6 +26,8 @@ services:
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
+      args:
+        - API_URL=http://localhost:1337/api
     volumes:
       - static_volume:/usr/src/cells/staticfiles/
       - media_volume:/usr/src/cells/mediafiles/

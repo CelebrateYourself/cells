@@ -2,11 +2,15 @@
 FROM node:10-alpine as build-stage
 
 WORKDIR /code
+ARG API_URL
+ENV VUE_APP_API_URL ${API_URL}
+ENV PATH /code/node_modules/.bin:$PATH
 
 COPY frontend/package.json .
 
 RUN npm cache verify
 RUN npm install
+RUN npm install -g @vue/cli
 
 COPY frontend .
 
