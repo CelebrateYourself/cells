@@ -1,15 +1,54 @@
 [
     {
         "model": "squares.squaresmap",
-        "pk": "deep-ocean",
+        "pk": "pyatnashki",
+        "fields": {
+            "author": 1,
+            "cols": 4,
+            "rows": 4,
+            "title": "Пятнашки",
+            "created_at": "2019-08-31T10:41:41.405Z",
+            "updated_at": "2019-08-31T10:42:32.831Z",
+            "json_str": "[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,null]"
+        }
+    },
+    {
+        "model": "squares.squaresmap",
+        "pk": "neboskreb",
+        "fields": {
+            "author": 1,
+            "cols": 4,
+            "rows": 7,
+            "title": "Небоскреб",
+            "created_at": "2019-08-31T10:41:41.405Z",
+            "updated_at": "2019-08-31T10:42:32.831Z",
+            "json_str": "[1,2,3,4,null,5,6,null,7,\"light\",\"light\",8,9,10,null,null,11,\"heavy\",12,13,14,15,\"light\",16,17,18,19,20]"
+        }
+    },
+    {
+        "model": "squares.squaresmap",
+        "pk": "voshod",
         "fields": {
             "author": 1,
             "cols": 5,
             "rows": 4,
-            "title": "Deep Ocean",
+            "title": "Восход",
             "created_at": "2019-08-31T10:41:41.405Z",
             "updated_at": "2019-08-31T10:42:32.831Z",
-            "json_str": "[1,2,3,4,5,6,null,7,null,8,9,10,\"light\",11,12,13,14,15,16,17]"
+            "json_str": "[1,2,3,4,5,6,null,\"light\",null,7,8,\"light\",9,\"heavy\",10,11,12,null,13,14]"
+        }
+    },
+    {
+        "model": "squares.squaresmap",
+        "pk": "nekorrektnaya",
+        "fields": {
+            "author": 1,
+            "cols": 3,
+            "rows": 3,
+            "title": "Некорректная",
+            "created_at": "2019-08-31T10:41:41.405Z",
+            "updated_at": "2019-08-31T10:42:32.831Z",
+            "json_str": "[1,null,3,4,\"light\",5,6,7,8]"
         }
     }
 ]
