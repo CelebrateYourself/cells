@@ -1,26 +1,29 @@
 <template>
-  <section class="squares-map-list">
+  <article>  
     <vue-title  title="Maps" />
-    <header class="panel">
-        <span class="panel-field">W/H</span>
-        <span class="panel-field">Title</span>
-        <span class="panel-field">Author</span>
-    </header>
-    <div v-if="!mapList.length" class="empty">
-      There are not maps yet
-    </div>
-    <template v-else>
-      <SquaresMapItem
-        v-for="map in mapList"
-        :key="map.slug"
-        :slug="map.slug"
-        :cols="map.cols"
-        :rows="map.rows"
-        :title="map.title"
-        :author="map.author"
-      />
-    </template>
-  </section>
+    <section class="squares-map-list">
+      <header class="panel">
+          <span class="panel-field">W/H</span>
+          <span class="panel-field">Title</span>
+          <span class="panel-field">Author</span>
+      </header>
+      <div v-if="!mapList.length" class="empty">
+        There are not maps yet
+      </div>
+      <template v-else>
+        <SquaresMapItem
+          v-for="map in mapList"
+          :key="map.slug"
+          :slug="map.slug"
+          :cols="map.cols"
+          :rows="map.rows"
+          :title="map.title"
+          :author="map.author"
+          :authorName="map.author_name"
+        />
+      </template>
+    </section>
+  </article>
 </template>
 
 <script>

@@ -6,7 +6,7 @@
         {{ title }}
       </router-link>
     </span>
-    <span class="item-field">{{ author }}</span>
+    <span class="item-field">{{ authorName }}</span>
   </article>
 </template>
 
@@ -33,8 +33,12 @@ export default {
     author: {
       type: Number,
       required: true,
+    },
+    authorName: {
+      type: String,
+      required: true
     }
-  },    
+  },
 }
 </script>
 
