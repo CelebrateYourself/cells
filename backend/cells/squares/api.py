@@ -4,7 +4,7 @@ from .models import SquaresMap
 from .serializers import SquaresMapSerializer
 
 
-class SquaresMapViewSet(viewsets.ModelViewSet):
+class SquaresMapViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = SquaresMap.objects.all()
     serializer_class = SquaresMapSerializer
     lookup_field = 'slug'
