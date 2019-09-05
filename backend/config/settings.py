@@ -25,9 +25,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=0))
 
+HOST = os.environ.get('HOST', '127.0.0.1')
+
 ALLOWED_HOSTS = [
     'localhost',
-    '127.0.0.1',
+    HOST,
 ]
 
 
@@ -117,7 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:8080",
+    'http://localhost',
+    'http://localhost:8080',
+    (HOST if HOST.startswith('http://') else 'http://' + HOST),
 ]
 
 # Internationalization

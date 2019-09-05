@@ -6,37 +6,49 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
+    container_name: cells_prod_backend
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - static_volume:/code/staticfiles/
-      - media_volume:/code/mediafiles/
+      - prod_static:/code/staticfiles/
+      - prod_media:/code/mediafiles/
     expose:
       - 8000
     env_file: backend.env
+    networks:
+      - production
     depends_on:
       - db
 
   db:
     image: postgres:11.2-alpine
+    container_name: cells_prod_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - prod_postgres:/var/lib/postgresql/data/
     env_file: db.env
+    networks:
+      - production
 
   web:
     build:
       context: .
       dockerfile: ./nginx/Dockerfile
       args:
-        - API_URL=http://localhost:1337/api
+        - API_URL=/api
+    container_name: cells_prod_web
     volumes:
-      - static_volume:/usr/src/cells/staticfiles/
-      - media_volume:/usr/src/cells/mediafiles/
+      - prod_static:/usr/src/cells/staticfiles/
+      - prod_media:/usr/src/cells/mediafiles/
     ports:
-      - 1337:80
+      - 8888:80
+    networks:
+      - production
     depends_on:
       - backend
 
 volumes:
-  postgres_data:
-  static_volume:
-  media_volume:
+  prod_postgres:
+  prod_static:
+  prod_media:
+
+networks:
+  production:
