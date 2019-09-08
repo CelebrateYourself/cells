@@ -17,4 +17,14 @@ export default {
     font-family: 'Montserrat', 'Helvetica', 'sans-serif';
     color: #333;
   }
+
+  a,
+  a:visited {
+    color: #25a;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
 </style>

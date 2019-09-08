@@ -49,7 +49,7 @@ export default {
 
 <style scoped>
   .squares-map-item {
-      border-bottom: 0.1em solid #aaa;
+      border-bottom: 0.1em solid #bbb;
       display: table-row;
   }
 
