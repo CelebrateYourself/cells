@@ -23,3 +23,7 @@ class SquaresMap(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    @property
+    def size(self):
+        return self.rows * self.cols

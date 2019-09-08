@@ -1,6 +1,7 @@
 <template>
   <article class="squares-map-item">
     <span class="item-field">{{ `${ cols }/${ rows }` }}</span>
+    <span class="item-field">&#10066;&nbsp;{{ size }}</span>
     <span class="item-field">
       <router-link :to="{ name: 'squares-map-detail', params: { slug } }">
         {{ title }}
@@ -23,6 +24,10 @@ export default {
       required: true,
     },
     rows: {
+      type: Number,
+      required: true,
+    },
+    size: {
       type: Number,
       required: true,
     },
@@ -55,6 +60,10 @@ export default {
   .item-field {
       display: table-cell;
       padding: 1em;
+  }
+
+  .map-item-square {
+    font-family: serif;
   }
 
 </style>

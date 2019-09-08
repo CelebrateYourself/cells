@@ -4,14 +4,12 @@
       <vue-title :title="map.title" />
       <header>
         <h3>{{ map.title }}</h3>
+        <router-link :to="{ name: 'squares-map-list' }">Карты</router-link>
       </header>
-      <section>
-        <button @click.once="startGame">Play</button>
-        <aside id="game"></aside>
+      <section class="map-section">
+        <button @click.once="startGame" id="play-button">Play</button>
+        <article id="game"></article>
       </section>
-      <footer>
-        <router-link :to="{ name: 'squares-map-list' }">Maps</router-link>
-      </footer>
     </section>
   </article>
 </template>
@@ -69,11 +67,18 @@ export default {
     },
 
     startGame(){
+      this.fadeButton()
+
       const map = this.map
       const game = new Cells('#game', [map.rows, map.cols], {cellSize: 80})
       const json = JSON.parse(map.json_str)
       game.load(json)
       game.run()
+    },
+
+    fadeButton(){
+      const button = document.querySelector('#play-button')
+      button.style.display = 'none'
     }
   },
 
@@ -84,5 +89,21 @@ export default {
 </script>
 
 <style scoped>
+
+  header {
+    margin-bottom: 1em;
+  }
+
+  h3 {
+    font-size: 180%;
+    font-weight: 900;
+    margin-bottom: 0.5em;
+  }
+
+  #play-button {
+    margin-top: 1em;
+    padding: 1em 3em;
+    cursor: pointer;
+  }
 
 </style>

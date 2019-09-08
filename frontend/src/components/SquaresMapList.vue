@@ -4,6 +4,7 @@
     <section class="squares-map-list">
       <header class="panel">
           <span class="panel-field">W/H</span>
+          <span class="panel-field">Size</span>
           <span class="panel-field">Title</span>
           <span class="panel-field">Author</span>
       </header>
@@ -17,6 +18,7 @@
           :slug="map.slug"
           :cols="map.cols"
           :rows="map.rows"
+          :size="map.board_size"
           :title="map.title"
           :author="map.author"
           :authorName="map.author_name"

@@ -16,7 +16,8 @@ export default {
 <style scoped>
   .squares-page {
     margin: 2em auto;
-    max-width: 500px;
+    max-width: 600px;
     min-width: 300px;
+    text-align: center;
   }
 </style>
