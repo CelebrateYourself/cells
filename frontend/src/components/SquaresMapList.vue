@@ -30,6 +30,7 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import { LOAD_MAP_LIST } from '../store/actions/squares'
 import SquaresMapItem from './SquaresMapItem'
 
 const { mapActions, mapGetters } = createNamespacedHelpers('squares')
@@ -46,13 +47,11 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      loadMapList: 'FETCH_MAPS',
-    }),
+    ...mapActions([LOAD_MAP_LIST]),
   },
 
   created(){
-    this.loadMapList()
+    this[LOAD_MAP_LIST]()
   }
 }
 </script>

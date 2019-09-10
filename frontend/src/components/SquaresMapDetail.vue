@@ -1,6 +1,9 @@
 <template>
   <article class="squares-map-detail">
-    <section v-if="map">
+    <section v-if="loading">
+      <vue-loading />
+    </section>
+    <section v-else>
       <vue-title :title="map.title" />
       <header>
         <h3>{{ map.title }}</h3>
@@ -16,8 +19,8 @@
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
+import { LOAD_MAP, LOAD_MAP_LIST } from '../store/actions/squares'
 import Cells from '../assets/js/engine'
-
 
 const { mapActions, mapGetters } = createNamespacedHelpers('squares')
 
@@ -44,15 +47,13 @@ export default {
   },
 
   methods: {
-    ...mapActions({
-      fetchMap: 'FETCH_MAP',
-    }),
+    ...mapActions([LOAD_MAP]),
 
     loadMap(){
       this.map = null
       this.loading = true
 
-      this.fetchMap(this.id)
+      this[LOAD_MAP](this.id)
         .then(() => { this.map = this.currentMap })
         .catch(e => {
           if(e.isAxiosError){

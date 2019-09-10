@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import SquaresPage from './components/SquaresPage'
-import SquaresMapList from './components/SquaresMapList'
-import SquaresMapDetail from './components/SquaresMapDetail'
-import NotFoundPage from './components/NotFoundPage'
+import SquaresPage from '../components/SquaresPage'
+import SquaresMapList from '../components/SquaresMapList'
+import SquaresMapDetail from '../components/SquaresMapDetail'
+import NotFoundPage from '../components/NotFoundPage'
 
 Vue.use(VueRouter)
 

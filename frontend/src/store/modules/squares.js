@@ -1,5 +1,7 @@
-import http from 'axios'
 import { apiURL } from '../../config'
+import apiCall from '../../util/api'
+
+import { LOAD_MAP, LOAD_MAP_LIST } from '../actions/squares'
 
 
 const URL = `${ apiURL }/squares`
@@ -14,33 +16,29 @@ export default {
   },
 
   getters: {
-    mapList: (state) => {
-      return state.maps
-    },
-    currentMap: (state) => {
-      return state.current
-    }
+    mapList: (state) => state.maps,
+    currentMap: (state) => state.current,
   },
 
   mutations: {
-    SET_MAPS: (state, payload) => {
+    [LOAD_MAP_LIST]: (state, payload) => {
       state.maps = payload
     },
-    SET_CURRENT: (state, payload) => {
+    [LOAD_MAP]: (state, payload) => {
       state.current = payload
     }
   },
 
   actions: {
-    FETCH_MAPS: async ({ commit }) => {
-      const maps = await http.get(`${ URL }/maps/`)
+    [LOAD_MAP_LIST]: async ({ commit }) => {
+      const maps = await apiCall.get(`${ URL }/maps/`)
         .then(result => result.data)
-      commit('SET_MAPS', maps)
+      commit(LOAD_MAP_LIST, maps)
     },
-    FETCH_MAP: async ({ commit }, slug) => {
-      const current = await http.get(`${ URL }/maps/${ slug }/`)
+    [LOAD_MAP]: async ({ commit }, slug) => {
+      const current = await apiCall.get(`${ URL }/maps/${ slug }/`)
         .then(result => result.data)
-      commit('SET_CURRENT', current)
+      commit(LOAD_MAP, current)
     }
   },
 }
