@@ -29,7 +29,7 @@ export default {
 
   data(){
     return {
-      loading: true,
+      loading: false,
       map: null,
     }
   },
@@ -55,16 +55,7 @@ export default {
 
       this[LOAD_MAP](this.id)
         .then(() => { this.map = this.currentMap })
-        .catch(e => {
-          if(e.isAxiosError){
-            const status = e.response.status
-            
-            if(status === 404){
-              this.$router.replace({name: '404'})
-            }
-          } 
-        })
-        .finally(() => this.loading = false)
+        .finally(() => { this.loading = false })
     },
 
     startGame(){

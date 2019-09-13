@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import ErrorPage from '../components/ErrorPage'
 import SquaresPage from '../components/SquaresPage'
 import SquaresMapList from '../components/SquaresMapList'
 import SquaresMapDetail from '../components/SquaresMapDetail'
-import NotFoundPage from '../components/NotFoundPage'
 
 Vue.use(VueRouter)
 
@@ -42,13 +42,18 @@ const router = new VueRouter({
 
     // Default
     {
-      path: '/404',
-      name: '404',
-      component: NotFoundPage,
+      path: '/error',
+      name: 'error',
+      component: ErrorPage,
+      props: true,
     },
     {
       path: '*',
-      redirect: { name: '404' },
+      redirect: {
+        name: 'error',
+        params: {status: 404, statusText: 'Not Found'},
+        props: true
+      },      
     }
   ]  // routes
 })

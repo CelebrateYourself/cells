@@ -1,6 +1,5 @@
 <template>
   <main class="squares-page">
-    <vue-title title="Squares" />
     <router-view></router-view>
   </main>
 </template>
@@ -16,8 +15,8 @@ export default {
 <style scoped>
   .squares-page {
     margin: 2em auto;
-    max-width: 600px;
-    min-width: 300px;
     text-align: center;
+    min-width: 400px;
+    max-width: 600px;
   }
 </style>

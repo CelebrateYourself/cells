@@ -7,14 +7,14 @@ export default {
     title: {
       type: String,
       required: true,
-      default: title
+      default: ''
     },
   },
   watch: {
     title: {
       immediate: true,
       handler(){
-        document.title = this.title
+        document.title = `${ this.title ? `${this.title} | ${ title }` : title }`
       }
     }
   },

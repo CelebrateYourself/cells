@@ -1,10 +1,9 @@
-import { apiURL } from '../../config'
 import apiCall from '../../util/api'
 
 import { LOAD_MAP, LOAD_MAP_LIST } from '../actions/squares'
 
 
-const URL = `${ apiURL }/squares`
+const URL = `/squares`
 
 export default {
   strict: true,
