@@ -10,16 +10,19 @@
         <router-link :to="{ name: 'squares-map-list' }">Карты</router-link>
       </header>
       <section class="map-section">
-        <button @click.once="startGame" id="play-button">Play</button>
+        <button @click.once="startGame" id="play-button" class="button">Play</button>
         <article id="game"></article>
       </section>
+      <footer>
+        <small class="info">Переместите фишки в соответствующие ячейки</small>
+      </footer>
     </section>
   </article>
 </template>
 
 <script>
 import { createNamespacedHelpers } from 'vuex'
-import { LOAD_MAP, LOAD_MAP_LIST } from '../store/actions/squares'
+import { LOAD_MAP } from '../store/actions/squares'
 import Cells from '../assets/js/engine'
 
 const { mapActions, mapGetters } = createNamespacedHelpers('squares')
@@ -82,20 +85,26 @@ export default {
 
 <style scoped>
 
-  header {
-    margin-bottom: 1em;
-  }
-
   h3 {
     font-size: 180%;
     font-weight: 900;
     margin-bottom: 0.5em;
   }
 
+  .map-section {
+    margin: 1em auto 2em;
+  }
+
+  .info {
+    border-left: 0.5em solid #999;
+    padding: 0.5em;
+    color: #888;
+  }
+
   #play-button {
     margin-top: 1em;
     padding: 1em 3em;
-    cursor: pointer;
   }
+
 
 </style>
