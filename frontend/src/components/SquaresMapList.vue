@@ -2,18 +2,22 @@
   <article>  
     <vue-title  title="Maps" />
     <section class="squares-map-list">
-      <header class="panel">
-          <span class="panel-field">W/H</span>
-          <span class="panel-field">Size</span>
-          <span class="panel-field">Title</span>
-          <span class="panel-field">Author</span>
+      <header class="panel" @click.stop="sortBy($event)">
+        <span class="panel-field">
+          <span class="panel-button" :[ATTR]="COLS">W</span>
+          <span>/</span>
+          <span class="panel-button" :[ATTR]="ROWS">H</span>
+        </span>
+        <span class="panel-field panel-button" :[ATTR]="SIZE">Size</span>
+        <span class="panel-field panel-button" :[ATTR]="TITLE">Title</span>
+        <span class="panel-field panel-button" :[ATTR]="AUTHOR">Author</span>
       </header>
-      <div v-if="!mapList.length" class="empty">
+      <div v-if="!maps.length" class="empty">
         There are not maps yet
       </div>
       <template v-else>
         <SquaresMapItem
-          v-for="map in mapList"
+          v-for="map in maps"
           :key="map.slug"
           :slug="map.slug"
           :cols="map.cols"
@@ -42,16 +46,91 @@ export default {
     SquaresMapItem
   },
 
+  data(){
+    return {
+      AUTHOR: 'author_name',
+      SIZE: 'board_size',
+      TITLE: 'title',
+      COLS: 'cols',
+      ROWS: 'rows',
+
+      ATTR: 'data-field',
+      activeColumnElement: null,
+
+      maps: [],
+    }
+  },
+
   computed: {
     ...mapGetters(['mapList'])
   },
 
   methods: {
     ...mapActions([LOAD_MAP_LIST]),
+
+    sortBy(e){
+      const elt = e.target
+
+      if(!elt.classList.contains('panel-button') && !elt.hasAttribute(this.ATTR)){
+        return      
+      }
+
+      if(this.activeColumnElement){
+        this.activeColumnElement.click()
+      }
+      this.activeColumnElement = elt
+
+      const ENTER = 'Enter',
+            MAX_LENGTH = 5
+
+      const self = this,
+            field = elt.getAttribute(this.ATTR),
+            title = elt.textContent,
+            input = document.createElement('input')
+
+      const oninput = function(e){
+        const allMaps = self.mapList.slice()
+        self.maps = input.value 
+          ? allMaps.filter((map) => String(map[field])
+            .toLowerCase()
+            .indexOf(input.value) >= 0)
+          : allMaps
+      }
+
+      const reset = function(e){
+        // to stop event recursion (panel click)
+        if(event && event.cancelBubble){
+          event.cancelBubble()
+        }
+        e.stopPropagation()
+
+        input.removeEventListener('input', oninput)
+        elt.removeEventListener('click', reset)
+
+        elt.textContent = title
+        self.activeColumnElement = null
+        self.maps = self.mapList.slice()
+      }
+
+      input.placeholder = title
+      input.maxLength = MAX_LENGTH
+      input.style.cssText = '' +
+        'width: ' + (title.length > 1 ? title.length : 2) + 'ex; padding: 0em;' +
+        'margin: 0em; background: transparent;' + 
+        'color: #333; text-align: center; text-decoration: underline;'
+
+      elt.textContent = ''
+      elt.appendChild(input)
+
+      input.focus()
+      input.addEventListener('input', oninput)
+      elt.addEventListener('click', reset)
+    },
   },
 
   created(){
     this[LOAD_MAP_LIST]()
+    .then(() => { this.maps = this.mapList.slice() })
   }
 }
 </script>
@@ -75,9 +154,6 @@ export default {
 
     .panel {
         display: table-row;
-    }
-
-    .panel {
         background: #777;
         color: #eee;
         font-weight: 900;
@@ -87,4 +163,17 @@ export default {
         display: table-cell;
         padding: 1em;
     }
+
+    .panel-field:hover {
+      background: #888;
+    }
+
+    .panel-button {
+      cursor: pointer;
+    }
+
+    .panel-button:hover {
+        color: #444;
+    }
+
 </style>
