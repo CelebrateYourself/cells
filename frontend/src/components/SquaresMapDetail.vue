@@ -52,7 +52,7 @@ export default {
   methods: {
     ...mapActions([LOAD_MAP]),
 
-    loadMap(){
+    _load(){
       this.map = null
       this.loading = true
 
@@ -78,7 +78,7 @@ export default {
   },
 
   created(){
-    this.loadMap()
+    this._load()
   }
 }
 </script>

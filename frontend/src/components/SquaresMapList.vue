@@ -1,7 +1,10 @@
 <template>
   <article>  
     <vue-title  title="Maps" />
-    <section class="squares-map-list">
+    <section v-if="loading">
+      <vue-loading />
+    </section>
+    <section v-else class="squares-map-list">
       <header class="panel" @click.stop="sortBy($event)">
         <span class="panel-field">
           <span class="panel-button" :[ATTR]="COLS">W</span>
@@ -58,6 +61,7 @@ export default {
       activeColumnElement: null,
 
       maps: [],
+      loading: false,
     }
   },
 
@@ -67,6 +71,15 @@ export default {
 
   methods: {
     ...mapActions([LOAD_MAP_LIST]),
+
+    _load(){
+      this.loading = true
+      this.maps = []
+
+      this[LOAD_MAP_LIST]()
+        .then(() => { this.maps = this.mapList.slice() })
+        .finally(() => { this.loading = false })
+    },
 
     sortBy(e){
       const elt = e.target
@@ -129,8 +142,7 @@ export default {
   },
 
   created(){
-    this[LOAD_MAP_LIST]()
-    .then(() => { this.maps = this.mapList.slice() })
+    this._load()
   }
 }
 </script>
