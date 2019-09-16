@@ -8,7 +8,7 @@
 
 export default {
   name: 'app',
-  components: {}
+  components: {},
 }
 </script>
 
@@ -39,6 +39,13 @@ a:hover {
 
 .button:hover {
     box-shadow: inset 0em 0em 0.2em #aaa;
+}
+
+.button:disabled {
+  color: #999;
+  box-shadow: none;
+  border: 0.1em solid #ccc;
+  cursor: initial;
 }
 
 </style>

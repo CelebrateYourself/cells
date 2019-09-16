@@ -10,8 +10,7 @@
         <router-link :to="{ name: 'squares-map-list' }">Карты</router-link>
       </header>
       <section class="map-section">
-        <button @click.once="startGame" id="play-button" class="button">Play</button>
-        <article id="game"></article>
+        <button @click="startGame" id="play-button" class="button">Play</button>
       </section>
       <footer>
         <small class="info">Переместите фишки в соответствующие ячейки</small>
@@ -32,6 +31,8 @@ export default {
 
   data(){
     return {
+      CELL_SIZE: 80,
+
       loading: false,
       map: null,
     }
@@ -62,19 +63,30 @@ export default {
     },
 
     startGame(){
-      this.fadeButton()
 
+      const screen = document.createElement('aside');
+      screen.id = 'screen'
+      screen.style.cssText = 'position: absolute; width: 100%; height: 100%;' + 
+        'top: 0em; bottom: 0em; left: 0em; right: 0em; z-index: 3;' + 
+        ' background: #fff; text-align: center;';
+
+      document.body.appendChild(screen)
+
+      const button = document.querySelector('#play-button')
       const map = this.map
-      const game = new Cells('#game', [map.rows, map.cols], {cellSize: 80})
+      const game = new Cells('#screen', [map.rows, map.cols], {cellSize: this.CELL_SIZE})
       const json = JSON.parse(map.json_str)
+
       game.load(json)
+      game.onopen = function(){
+        button.disabled = true
+      }
+      game.onclose = function(){
+        button.disabled = false
+        screen.parentNode.removeChild(screen)
+      }
       game.run()
     },
-
-    fadeButton(){
-      const button = document.querySelector('#play-button')
-      button.style.display = 'none'
-    }
   },
 
   created(){

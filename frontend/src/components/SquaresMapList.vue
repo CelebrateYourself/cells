@@ -93,8 +93,7 @@ export default {
       }
       this.activeColumnElement = elt
 
-      const ENTER = 'Enter',
-            MAX_LENGTH = 5
+      const MAX_LENGTH = 5
 
       const self = this,
             field = elt.getAttribute(this.ATTR),
