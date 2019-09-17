@@ -1,0 +1,73 @@
+version: '3.6'
+
+services:
+  
+  backend_dev:
+    build: ./backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend/:/code/
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
+      - HOST=127.0.0.1
+      - SECRET_KEY=very_secret_key
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_DATABASE=cells_dev
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db_dev
+      - DB_PORT=5432
+      - DATABASE=postgres  # for entrypoint.sh
+      - SUPERUSER_EMAIL=root@cells.mail
+      - SUPERUSER_PASSWORD=superuser
+    depends_on:
+      - db_dev
+    networks:
+      - development
+
+  db_dev:
+    image: postgres:11.2-alpine
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cells_dev
+    networks:
+      - development
+
+  db-admin_dev:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=email
+      - PGADMIN_DEFAULT_PASSWORD=password
+    depends_on:
+      - db_dev
+    ports:
+      - 9000:80
+    networks:
+      - development
+
+  frontend_dev:
+    build: ./frontend
+    command: npm run serve -- --port 8080
+    volumes:
+      - ./frontend/:/code/
+      - node_modules:/code/node_modules
+    environment:
+      - VUE_APP_API_URL=http://localhost:8000/api
+    ports:
+      - 8080:8080
+    networks:
+      - development
+    depends_on:
+      - backend_dev
+
+volumes:
+  node_modules:
+  postgres_data_dev:
+
+networks:
+  development:
