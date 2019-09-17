@@ -105,7 +105,7 @@ export default {
         self.maps = input.value 
           ? allMaps.filter((map) => String(map[field])
             .toLowerCase()
-            .indexOf(input.value) >= 0)
+            .indexOf(input.value.toLowerCase()) >= 0)
           : allMaps
       }
 
