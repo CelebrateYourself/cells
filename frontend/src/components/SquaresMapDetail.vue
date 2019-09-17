@@ -7,13 +7,13 @@
       <vue-title :title="map.title" />
       <header>
         <h3>{{ map.title }}</h3>
-        <router-link :to="{ name: 'squares-map-list' }">Карты</router-link>
+        <router-link :to="{ name: 'squares-map-list' }">Maps</router-link>
       </header>
       <section class="map-section">
         <button @click="startGame" id="play-button" class="button">Play</button>
       </section>
       <footer>
-        <small class="info">Переместите фишки в соответствующие ячейки</small>
+        <small class="info">Move the tiles to their cells</small>
       </footer>
     </section>
   </article>
