@@ -2,31 +2,33 @@ version: '3'
 
 services:
 
-  backend:
+  api:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
-    container_name: cells_prod_backend
+    container_name: cells_api
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
     volumes:
-      - prod_static:/code/staticfiles/
-      - prod_media:/code/mediafiles/
+      - static:/code/staticfiles/
+      - media:/code/mediafiles/
     expose:
       - 8000
-    env_file: backend.env
+    env_file: api.env
     networks:
-      - production
+      - net
     depends_on:
       - db
 
   db:
     image: postgres:11.2-alpine
-    container_name: cells_prod_db
+    container_name: cells_db
     volumes:
-      - prod_postgres:/var/lib/postgresql/data/
+      - data:/var/lib/postgresql/data/
     env_file: db.env
+    expose:
+      - 5432
     networks:
-      - production
+      - net
 
   web:
     build:
@@ -34,21 +36,21 @@ services:
       dockerfile: ./nginx/Dockerfile
       args:
         - API_URL=/api
-    container_name: cells_prod_web
+    container_name: cells_web
     volumes:
-      - prod_static:/usr/src/cells/staticfiles/
-      - prod_media:/usr/src/cells/mediafiles/
+      - static:/usr/src/cells/staticfiles/
+      - media:/usr/src/cells/mediafiles/
     ports:
       - 8888:80
     networks:
-      - production
+      - net
     depends_on:
-      - backend
+      - api
 
 volumes:
-  prod_postgres:
-  prod_static:
-  prod_media:
+  data:
+  static:
+  media:
 
 networks:
-  production:
+  net:
