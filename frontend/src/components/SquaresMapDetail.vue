@@ -35,6 +35,7 @@ export default {
 
       loading: false,
       map: null,
+      game: null,
     }
   },
 
@@ -77,6 +78,10 @@ export default {
       const game = new Cells('#screen', [map.rows, map.cols], {cellSize: this.CELL_SIZE})
       const json = JSON.parse(map.json_str)
 
+      const ctx = this
+
+      this.game = game
+
       game.load(json)
       game.onopen = function(){
         button.disabled = true
@@ -84,6 +89,7 @@ export default {
       game.onclose = function(){
         button.disabled = false
         screen.parentNode.removeChild(screen)
+        ctx.game = null
       }
       game.run()
     },
@@ -91,7 +97,11 @@ export default {
 
   created(){
     this._load()
-  }
+  },
+
+  beforeDestroy(){
+    if(this.game) this.game.onclose()
+  },
 }
 </script>
 
