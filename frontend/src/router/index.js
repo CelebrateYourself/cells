@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import ScreenPage from '../components/ScreenPage'
 import ErrorPage from '../components/ErrorPage'
 import SquaresPage from '../components/SquaresPage'
 import SquaresMapList from '../components/SquaresMapList'
@@ -16,6 +17,13 @@ const router = new VueRouter({
       path: '/',
       name: 'home',
       redirect: { name: 'squares' },
+    },
+
+    {
+      path: '/screen/',
+      name: 'screen',
+      component: ScreenPage,
+      props: true,
     },
     
     {

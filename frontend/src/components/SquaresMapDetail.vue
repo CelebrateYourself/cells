@@ -48,7 +48,7 @@ export default {
   },
 
   watch: {
-    '$route.params.slug': 'loadMap',
+    '$route.params.slug': '_load',
   },
 
   methods: {
@@ -64,44 +64,34 @@ export default {
     },
 
     startGame(){
-
-      const screen = document.createElement('aside');
-      screen.id = 'screen'
-      screen.style.cssText = 'position: absolute; width: 100%; height: 100%;' + 
-        'top: 0em; bottom: 0em; left: 0em; right: 0em; z-index: 3;' + 
-        ' background: #fff; text-align: center;';
-
-      document.body.appendChild(screen)
-
-      const button = document.querySelector('#play-button')
-      const map = this.map
-      const game = new Cells('#screen', [map.rows, map.cols], {cellSize: this.CELL_SIZE})
-      const json = JSON.parse(map.json_str)
-
-      const ctx = this
-
+      const map = this.map,
+            game = new Cells([map.rows, map.cols], {cellSize: this.CELL_SIZE}),
+            json = JSON.parse(map.json_str)
+      
       this.game = game
 
       game.load(json)
-      game.onopen = function(){
-        button.disabled = true
-      }
-      game.onclose = function(){
-        button.disabled = false
-        screen.parentNode.removeChild(screen)
-        ctx.game = null
-      }
-      game.run()
+
+      // event handlers
+      game.onclose = ((router, slug) => {
+        return () => {
+          router.replace({
+            name: 'squares-map-detail',
+            params: { slug }
+          })
+        }
+      })(this.$router, this.map.slug)
+
+      // go to Game page
+      this.$router.push({
+        name: 'screen', params: { game },
+      })
     },
   },
 
   created(){
     this._load()
-  },
-
-  beforeDestroy(){
-    if(this.game) this.game.onclose()
-  },
+  }
 }
 </script>
 

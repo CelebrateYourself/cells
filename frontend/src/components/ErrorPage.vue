@@ -2,6 +2,8 @@
   <main>
     <vue-title :title="`Error ${ status } - ${ statusText }`" />
     <h2>{{ status }} {{ statusText }}</h2>
+    <br />
+    <router-link :to="{ name: 'home' }">Home</router-link>
   </main>
 </template>
 
