@@ -22,7 +22,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex'
 import { LOAD_MAP } from '../store/actions/squares'
-import Cells from '../assets/js/engine'
+import { Cells } from '../assets/js/engine'
 
 const { mapActions, mapGetters } = createNamespacedHelpers('squares')
 
