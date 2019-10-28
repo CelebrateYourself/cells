@@ -1,8 +1,8 @@
 <template>
   <article>
     <header>
-        <h3>Create map</h3>
-        <router-link :to="{ name: 'squares-map-list' }">Maps</router-link>
+      <h3>Create map</h3>
+      <router-link :to="{ name: 'squares-map-list' }">Maps</router-link>
     </header>
     <section>
       <button class="button" @click="this.build">Create</button>

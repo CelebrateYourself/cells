@@ -5,9 +5,9 @@
       <vue-loading />
     </section>
     <section v-else class="squares-map-list">
-      <header class="create">
+      <div class="editor">
        Try using the map <router-link :to="{ name: 'squares-map-create' }">editor</router-link>
-      </header>
+      </div>
       <header class="panel" @click.stop="sortBy($event)">
         <span class="panel-field">
           <span class="panel-button" :[ATTR]="COLS">W</span>
@@ -190,7 +190,7 @@ export default {
         color: #444;
     }
 
-    .create {
+    .editor {
       display: table-caption;
       caption-side: top;
       text-align: center;
