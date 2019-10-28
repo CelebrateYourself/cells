@@ -5,6 +5,7 @@ import ScreenPage from '../components/ScreenPage'
 import ErrorPage from '../components/ErrorPage'
 import SquaresPage from '../components/SquaresPage'
 import SquaresMapList from '../components/SquaresMapList'
+import SquaresMapCreate from '../components/SquaresMapCreate'
 import SquaresMapDetail from '../components/SquaresMapDetail'
 
 Vue.use(VueRouter)
@@ -39,6 +40,11 @@ const router = new VueRouter({
           path: 'maps',
           name: 'squares-map-list',
           component: SquaresMapList,
+        },
+        {
+          path: 'maps/create',
+          name: 'squares-map-create',
+          component: SquaresMapCreate,
         },
         {
           path: 'maps/:slug',
