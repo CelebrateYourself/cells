@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import ErrorPage from '../components/ErrorPage'
-import SquaresPage from '../components/SquaresPage'
-import SquaresMapList from '../components/SquaresMapList'
-import SquaresMapDetail from '../components/SquaresMapDetail'
-
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -17,10 +12,17 @@ const router = new VueRouter({
       name: 'home',
       redirect: { name: 'squares' },
     },
+
+    {
+      path: '/screen/',
+      name: 'screen',
+      component: () => import('../components/ScreenPage'),
+      props: true,
+    },
     
     {
       path: '/squares/',
-      component: SquaresPage,
+      component: () => import('../components/SquaresPage'),
       children: [
         {
           path: '',
@@ -30,12 +32,17 @@ const router = new VueRouter({
         {
           path: 'maps',
           name: 'squares-map-list',
-          component: SquaresMapList,
+          component: () => import('../components/SquaresMapList'),
+        },
+        {
+          path: 'maps/create',
+          name: 'squares-map-create',
+          component: () => import('../components/SquaresMapCreate'),
         },
         {
           path: 'maps/:slug',
           name: 'squares-map-detail',
-          component: SquaresMapDetail,
+          component: () => import('../components/SquaresMapDetail'),
         }
       ],
     },
@@ -44,7 +51,7 @@ const router = new VueRouter({
     {
       path: '/error',
       name: 'error',
-      component: ErrorPage,
+      component: () => import('../components/ErrorPage'),
       props: true,
     },
     {

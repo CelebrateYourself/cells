@@ -5,6 +5,9 @@
       <vue-loading />
     </section>
     <section v-else class="squares-map-list">
+      <div class="editor">
+       Try using the map <router-link :to="{ name: 'squares-map-create' }">editor</router-link>
+      </div>
       <header class="panel" @click.stop="sortBy($event)">
         <span class="panel-field">
           <span class="panel-button" :[ATTR]="COLS">W</span>
@@ -185,6 +188,13 @@ export default {
 
     .panel-button:hover {
         color: #444;
+    }
+
+    .editor {
+      display: table-caption;
+      caption-side: top;
+      text-align: center;
+      padding-bottom: 1em;
     }
 
 </style>
